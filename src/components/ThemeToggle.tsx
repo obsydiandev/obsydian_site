@@ -11,21 +11,27 @@ export default function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  // Dzięki temu unikamy problemów z SSR (miga przy ładowaniu)
-  if (!mounted) return null;
+  // Zapobiega problemom z hydratacją - pokazuje neutralną ikonę dopóki nie jest mounted
+  if (!mounted) {
+    return (
+      <button
+        aria-label="Przełącz motyw"
+        className="glass-card p-2 rounded-full transition hover:scale-110 text-slate-300"
+        disabled
+      >
+        <div className="w-5 h-5 bg-slate-400 rounded-full opacity-50"></div>
+      </button>
+    );
+  }
 
   return (
     <button
       aria-label="Przełącz motyw"
-      className="glass p-2 rounded-full transition hover:scale-110"
+      className="glass-card p-2 rounded-full transition hover:scale-110 text-slate-300 hover:text-white"
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
       title="Przełącz motyw"
     >
-      {resolvedTheme === 'dark' ? (
-        <span role="img" aria-label="Jasny motyw">🌞</span>
-      ) : (
-        <span role="img" aria-label="Ciemny motyw">🌜</span>
-      )}
+      {resolvedTheme === 'dark' ? <LightIcon /> : <DarkIcon />}
     </button>
   );
 }

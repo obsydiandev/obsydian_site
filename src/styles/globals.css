@@ -17,6 +17,50 @@ body {
   box-sizing: border-box;
 }
 
+/* Style dla linków - kursor pointer */
+a {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+/* Style dla buttonów */
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+/* Style dla elementów interaktywnych */
+.glass-card:hover,
+.glass-main:hover {
+  cursor: default;
+}
+
+/* Specyficzne style dla różnych typów linków */
+nav a {
+  cursor: pointer;
+}
+
+nav a:hover {
+  cursor: pointer;
+}
+
+/* Button w glass-card style */
+button.glass-card {
+  cursor: pointer;
+}
+
+button.glass-card:hover {
+  cursor: pointer;
+}
+
 /* Zoptymalizowany glass effect - tylko dla głównych kontenerów */
 .glass-main {
   background: rgba(51, 65, 85, 0.3);
@@ -24,18 +68,79 @@ body {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 20px;
+  position: relative;
+  overflow: hidden;
   /* Optymalizacja kompozytów dla płynności */
   will-change: transform;
   transform: translateZ(0);
 }
 
-/* Subtelny glass effect dla kart - bez blur dla wydajności */
+/* Animowany połysk przechodzący przez kontener */
+.glass-main::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    25deg,
+    transparent 40%,
+    rgba(148, 163, 184, 0.1) 45%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(148, 163, 184, 0.1) 55%,
+    transparent 60%
+  );
+  animation: shimmer 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Dodatkowy reflex effect */
+.glass-main::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 100%
+  );
+  border-radius: 20px 20px 0 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    transform: translateX(-120%) translateY(-40%) rotate(25deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(120%) translateY(40%) rotate(25deg);
+    opacity: 1;
+  }
+}
+
+/* Prosty glass effect dla kart - bez efektów połysków */
 .glass-card {
   background: rgba(71, 85, 105, 0.4);
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 16px;
   /* Optymalizacja dla płynnych interakcji */
   will-change: background-color;
+}
+
+/* Uproszczona klasa glass dla małych elementów */
+.glass {
+  background: rgba(71, 85, 105, 0.3);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* --- LIGHT THEME: Apple Liquid Glass --- */
@@ -45,52 +150,46 @@ body {
 }
 
 .light .glass-main {
-  background: linear-gradient(135deg, rgba(255,255,255,0.5) 10%, rgba(245,245,255,0.8) 100%);
-  backdrop-filter: blur(36px) saturate(180%);
-  -webkit-backdrop-filter: blur(36px) saturate(180%);
-  border: 2px solid rgba(255,255,255,0.35);
-  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 10%, rgba(245,245,255,0.9) 100%);
+  /* Usunięto backdrop-filter dla wydajności */
+  border: 1.5px solid rgba(200,200,200,0.18);
+  border-radius: 20px;
   box-shadow:
-    0 8px 32px 0 rgba(31,38,135,0.18),
-    0 2px 8px 0 rgba(255,255,255,0.18),
-    inset 0 2px 0 rgba(255,255,255,0.7);
+    0 2px 8px 0 rgba(31,38,135,0.07),
+    0 1px 2px 0 rgba(255,255,255,0.07);
   position: relative;
   will-change: transform;
   transform: translateZ(0);
 }
 
+/* Usunięto shimmer w light theme */
 .light .glass-main::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 10%; right: 10%; height: 2.5px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
-  border-radius: 2px;
-  z-index: 1;
+  display: none;
+}
+
+.light .glass-main::after {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.10) 0%,
+    transparent 100%
+  );
 }
 
 .light .glass-card {
-  background: linear-gradient(135deg, rgba(255,255,255,0.55) 10%, rgba(245,245,255,0.85) 100%);
-  backdrop-filter: blur(32px) saturate(170%);
-  -webkit-backdrop-filter: blur(32px) saturate(170%);
-  border: 2px solid rgba(255,255,255,0.35);
+  background: linear-gradient(135deg, rgba(255,255,255,0.45) 10%, rgba(245,245,255,0.75) 100%);
+  backdrop-filter: blur(8px) saturate(110%);
+  -webkit-backdrop-filter: blur(8px) saturate(110%);
+  border: 2px solid rgba(255,255,255,0.18);
   border-radius: 20px;
   box-shadow:
-    0 8px 32px 0 rgba(31,38,135,0.18),
-    0 2px 8px 0 rgba(255,255,255,0.18),
-    inset 0 1.5px 0 rgba(255,255,255,0.7);
+    0 2px 8px 0 rgba(31,38,135,0.08),
+    0 1px 2px 0 rgba(255,255,255,0.08);
   position: relative;
   will-change: background-color, transform;
   transition: all 0.3s cubic-bezier(.4,0,.2,1);
 }
 
-.light .glass-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 15%; right: 15%; height: 1.5px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
-  border-radius: 1.5px;
-  z-index: 1;
-}
+/* Usunięto .light .glass-main::before dla równomiernych ramek */
 
 .light .glass-card:hover {
   transform: translateY(-2px) scale(1.01);
@@ -131,11 +230,43 @@ body {
 .light .text-slate-200, .light .text-slate-300, .light .text-slate-400 { color: #334155 !important; }
 .light .bg-slate-700 { background: #e5e7eb !important; }
 
-/* Navbar glass effect in light mode */
 .light nav {
-  background: rgba(255,255,255,0.85) !important;
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
-  box-shadow: 0 4px 24px 0 rgba(31,38,135,0.10);
+}
+
+/* --- DARK THEME COLORS --- */
+.dark body,
+body {
+  color: #F3F4F6
+ ; /* Jasny tekst dla dark theme */
+}
+
+.dark .glass-main,
+.glass-main {
+  color: #F3F4F6
+
+;
+}
+
+.dark .glass-card,
+.glass-card {
+  color: #F3F4F6
+;
+}
+
+/* Animacja fade-in dla modala */
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* Kursor zoom-in na miniaturach */
+.cursor-zoom-in {
+  cursor: zoom-in;
 }
 

@@ -1,11 +1,11 @@
 import '@/styles/globals.css'; 
-import { Inter } from 'next/font/google';
+import { Epilogue } from 'next/font/google';
 import ThemeProvider from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar'; 
 import Footer from '@/components/Footer';
 import SmoothScrollHandler from '@/components/SmoothScrollHandler';
 
-const inter = Inter({ subsets: ['latin'] });
+const epilogue = Epilogue({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Obsydian – cyfrowa magia',
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={epilogue.className}>
         <ThemeProvider>
           <SmoothScrollHandler>
             <Navbar />

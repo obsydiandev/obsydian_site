@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import ContactForm from './ContactForm';
-import About from './About';
 
 export default function AboutContact() {
   const [formData, setFormData] = useState({
@@ -10,6 +8,8 @@ export default function AboutContact() {
     email: '',
     message: ''
   });
+  const [status, setStatus] = useState<'idle'|'loading'|'success'|'error'>("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -18,12 +18,28 @@ export default function AboutContact() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Tu będzie logika wysyłania formularza
-    console.log('Form submitted:', formData);
-    // Reset formularza
-    setFormData({ name: '', email: '', message: '' });
+    setStatus("loading");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        const data = await res.json();
+        setErrorMsg(data.error || "Błąd wysyłki. Spróbuj ponownie.");
+        setStatus("error");
+      }
+    } catch (err) {
+      setErrorMsg("Błąd sieci lub serwera. Spróbuj ponownie.");
+      setStatus("error");
+    }
   };
 
   return (
@@ -47,16 +63,16 @@ export default function AboutContact() {
                 Pracuję z firmami i osobami prywatnymi, oferując kompleksowe usługi od koncepcji
                 po wdrożenie i dalsze wsparcie.
               </p>
-              
-              <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-4 text-white">Technologie</h3>
-                <div className="flex flex-wrap gap-2">
-                  {['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Tailwind CSS'].map(tech => (
-                    <span key={tech} className="px-3 py-1 glass-card text-sm text-white">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+            </div>
+
+            <div className="absolute bottom-0 left-0 w-full pb-8 px-8">
+              <h3 className="font-bold text-xl mb-4">Technologie</h3>
+              <div className="flex flex-wrap gap-2">
+                {['JavaScript', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Java', 'IoT', 'System Enginering'].map(tech => (
+                  <span key={tech} className="px-3 py-1 glass-card text-sm text-white">
+                    {tech}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -118,18 +134,22 @@ export default function AboutContact() {
               <button
                 type="submit"
                 className="w-full px-6 py-3 glass-card text-white font-medium hover:bg-blue-600/20 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                disabled={status==="loading"}
               >
-                Wyślij wiadomość
+                {status==="loading" ? "Wysyłanie..." : "Wyślij wiadomość"}
               </button>
+              {status==="success" && (
+                <div className="text-green-400 text-center pt-2">Wiadomość została wysłana!</div>
+              )}
+              {status==="error" && (
+                <div className="text-red-400 text-center pt-2">{errorMsg}</div>
+              )}
             </form>
 
             <div className="mt-8 pt-6 border-t border-white/20">
               <p className="text-slate-200 text-sm">
-                Lub skontaktuj się bezpośrednio:
+                Lub skontaktuj się bezpośrednio: <a href="mailto:biuro@obsydian.dev">biuro@obsydian.dev</a>
               </p>
-              <div className="mt-2 space-y-1 text-slate-300 text-sm">
-                <p>📧 kontakt@obsydian.pl</p>
-              </div>
             </div>
           </div>
         </div>
