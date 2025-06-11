@@ -46,21 +46,21 @@ export default function AboutContact() {
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-8 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch about-contact-grid">
         {/* About Section */}
         <div className="h-full">
-          <div className="glass-main p-8 h-full">
-            <h2 className="text-3xl font-bold mb-2 text-white">{t.about.title}</h2>
-            <p className="text-lg text-slate-300 mb-6">{t.about.subtitle}</p>
-            <div className="space-y-4 text-slate-200">
-              <p>{t.about.description}</p>
+          <div className="glass-main p-6 md:p-8 h-full about-section">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 text-white">{t.about.title}</h2>
+            <p className="text-base md:text-lg text-slate-300 mb-4 md:mb-6">{t.about.subtitle}</p>
+            <div className="space-y-3 md:space-y-4 text-slate-200 mb-6 md:mb-8">
+              <p className="text-sm md:text-base">{t.about.description}</p>
             </div>
 
-            <div className="absolute bottom-0 left-0 w-full pb-8 px-8">
-              <h3 className="font-bold text-xl mb-4 text-white">{t.about.skills}</h3>
-              <div className="flex flex-wrap gap-2">
+            <div className="mt-auto">
+              <h3 className="font-bold text-lg md:text-xl mb-3 md:mb-4 text-white">{t.about.skills}</h3>
+              <div className="flex flex-wrap gap-2 tech-tags">
                 {['JavaScript', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Java', 'IoT', 'System Engineering'].map(tech => (
-                  <span key={tech} className="tech-tag">
+                  <span key={tech} className="tech-tag text-xs md:text-sm px-2 md:px-3 py-1">
                     {tech}
                   </span>
                 ))}
@@ -71,10 +71,10 @@ export default function AboutContact() {
 
         {/* Contact Form Section */}
         <div className="h-full" id="kontakt">
-          <div className="glass-main p-8 h-full">
-            <h2 className="text-3xl font-bold mb-2 text-white">{t.contact.title}</h2>
-            <p className="text-lg text-slate-300 mb-6">{t.contact.subtitle}</p>
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="glass-main p-6 md:p-8 h-full contact-section">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 text-white">{t.contact.title}</h2>
+            <p className="text-base md:text-lg text-slate-300 mb-4 md:mb-6">{t.contact.subtitle}</p>
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-200 mb-2">
                   {t.contact.form.name}
@@ -86,7 +86,7 @@ export default function AboutContact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="contact-input"
+                  className="contact-input w-full text-base"
                   placeholder={t.contact.form.name}
                 />
               </div>
@@ -102,7 +102,7 @@ export default function AboutContact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="contact-input"
+                  className="contact-input w-full text-base"
                   placeholder={t.contact.form.email}
                 />
               </div>
@@ -118,35 +118,34 @@ export default function AboutContact() {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="contact-textarea"
+                  className="contact-textarea w-full text-base resize-none"
                   placeholder={t.contact.form.message}
                 />
               </div>
 
               <button
                 type="submit"
-                className="contact-submit-btn"
+                className="contact-submit-btn w-full md:w-auto px-6 py-3 text-base font-medium"
                 disabled={status==="loading"}
               >
                 {status==="loading" ? t.contact.form.sending : t.contact.form.send}
               </button>
               {status==="success" && (
-                <div className="status-success">{t.contact.form.success}</div>
+                <div className="status-success text-sm md:text-base">{t.contact.form.success}</div>
               )}
               {status==="error" && (
-                <div className="status-error">{errorMsg}</div>
+                <div className="status-error text-sm md:text-base">{errorMsg}</div>
               )}
             </form>
 
-            <div className="mt-8 pt-6 border-t border-white/20">
-              <p className="text-slate-200 text-sm">
-                {t.contact.directContact}<a href="mailto:biuro@obsydian.dev">biuro@obsydian.dev</a>
+            <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/20">
+              <p className="text-slate-200 text-xs md:text-sm">
+                {t.contact.directContact}<a href="mailto:biuro@obsydian.dev" className="text-blue-400 hover:text-blue-300">biuro@obsydian.dev</a>
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
   );
 }
