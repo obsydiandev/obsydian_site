@@ -1,6 +1,7 @@
 import '@/styles/globals.css'; 
 import { Epilogue } from 'next/font/google';
 import ThemeProvider from '@/components/ThemeProvider';
+import { LanguageProvider } from '@/components/LanguageProvider';
 import Navbar from '@/components/Navbar'; 
 import Footer from '@/components/Footer';
 import ScrollShimmer from '@/components/ScrollShimmer';
@@ -21,10 +22,12 @@ export default function RootLayout({
     <html lang="pl" suppressHydrationWarning>
       <body className={epilogue.className}>
         <ThemeProvider>
-          <ScrollShimmer />
-          <Navbar />
-          <div className="pt-16">{children}</div>
-          <Footer />
+          <LanguageProvider>
+            <ScrollShimmer />
+            <Navbar />
+            <div className="pt-16">{children}</div>
+            <Footer />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

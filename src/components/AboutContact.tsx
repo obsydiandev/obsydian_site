@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useLanguage } from './LanguageProvider';
 
 export default function AboutContact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -33,11 +35,11 @@ export default function AboutContact() {
         setFormData({ name: '', email: '', message: '' });
       } else {
         const data = await res.json();
-        setErrorMsg(data.error || "Błąd wysyłki. Spróbuj ponownie.");
+        setErrorMsg(data.error || t.contact.form.error);
         setStatus("error");
       }
     } catch {
-      setErrorMsg("Błąd sieci lub serwera. Spróbuj ponownie.");
+      setErrorMsg(t.contact.form.error);
       setStatus("error");
     }
   };
@@ -48,27 +50,16 @@ export default function AboutContact() {
         {/* About Section */}
         <div className="h-full">
           <div className="glass-main p-8 h-full">
-            <h2 className="text-3xl font-bold mb-6 text-white">O mnie</h2>
+            <h2 className="text-3xl font-bold mb-2 text-white">{t.about.title}</h2>
+            <p className="text-lg text-slate-300 mb-6">{t.about.subtitle}</p>
             <div className="space-y-4 text-slate-200">
-              <p>
-                Jestem specjalistą od tworzenia nowoczesnych stron internetowych i aplikacji.
-                Łączę technologię z kreatywnością, aby dostarczać rozwiązania, które nie tylko wyglądają świetnie,
-                ale także działają perfekcyjnie.
-              </p>
-              <p>
-                Moją pasją jest fotografia, która pomaga mi lepiej rozumieć estetykę i kompozycję -
-                umiejętności, które przenoszę do projektowania interfejsów użytkownika.
-              </p>
-              <p>
-                Pracuję z firmami i osobami prywatnymi, oferując kompleksowe usługi od koncepcji
-                po wdrożenie i dalsze wsparcie.
-              </p>
+              <p>{t.about.description}</p>
             </div>
 
             <div className="absolute bottom-0 left-0 w-full pb-8 px-8">
-              <h3 className="font-bold text-xl mb-4 text-white">Technologie</h3>
+              <h3 className="font-bold text-xl mb-4 text-white">{t.about.skills}</h3>
               <div className="flex flex-wrap gap-2">
-                {['JavaScript', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Java', 'IoT', 'System Enginering'].map(tech => (
+                {['JavaScript', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Java', 'IoT', 'System Engineering'].map(tech => (
                   <span key={tech} className="tech-tag">
                     {tech}
                   </span>
@@ -81,11 +72,12 @@ export default function AboutContact() {
         {/* Contact Form Section */}
         <div className="h-full" id="kontakt">
           <div className="glass-main p-8 h-full">
-            <h2 className="text-3xl font-bold mb-6 text-white">Kontakt. Masz pomysł lub pytanie?</h2>
+            <h2 className="text-3xl font-bold mb-2 text-white">{t.contact.title}</h2>
+            <p className="text-lg text-slate-300 mb-6">{t.contact.subtitle}</p>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-200 mb-2">
-                  Imię i nazwisko
+                  {t.contact.form.name}
                 </label>
                 <input
                   type="text"
@@ -95,13 +87,13 @@ export default function AboutContact() {
                   onChange={handleChange}
                   required
                   className="contact-input"
-                  placeholder="Wpisz swoje imię i nazwisko"
+                  placeholder={t.contact.form.name}
                 />
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-slate-200 mb-2">
-                  Email
+                  {t.contact.form.email}
                 </label>
                 <input
                   type="email"
@@ -111,13 +103,13 @@ export default function AboutContact() {
                   onChange={handleChange}
                   required
                   className="contact-input"
-                  placeholder="twoj@email.com"
+                  placeholder={t.contact.form.email}
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-slate-200 mb-2">
-                  Wiadomość
+                  {t.contact.form.message}
                 </label>
                 <textarea
                   id="message"
@@ -127,7 +119,7 @@ export default function AboutContact() {
                   required
                   rows={4}
                   className="contact-textarea"
-                  placeholder="Opisz swój projekt lub zadaj pytanie..."
+                  placeholder={t.contact.form.message}
                 />
               </div>
 
@@ -136,10 +128,10 @@ export default function AboutContact() {
                 className="contact-submit-btn"
                 disabled={status==="loading"}
               >
-                {status==="loading" ? "Wysyłanie..." : "Wyślij wiadomość"}
+                {status==="loading" ? t.contact.form.sending : t.contact.form.send}
               </button>
               {status==="success" && (
-                <div className="status-success">Wiadomość została wysłana!</div>
+                <div className="status-success">{t.contact.form.success}</div>
               )}
               {status==="error" && (
                 <div className="status-error">{errorMsg}</div>
@@ -148,7 +140,7 @@ export default function AboutContact() {
 
             <div className="mt-8 pt-6 border-t border-white/20">
               <p className="text-slate-200 text-sm">
-                Lub skontaktuj się bezpośrednio: <a href="mailto:biuro@obsydian.dev">biuro@obsydian.dev</a>
+                {t.contact.directContact}<a href="mailto:biuro@obsydian.dev">biuro@obsydian.dev</a>
               </p>
             </div>
           </div>

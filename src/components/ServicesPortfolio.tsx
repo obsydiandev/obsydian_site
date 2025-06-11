@@ -1,44 +1,49 @@
 "use client";
 
 import Image from 'next/image';
-
-const services = [
-    {
-        title: 'Strony internetowe',
-        desc: 'Nowoczesne, responsywne strony www – wizytówki, sklepy, portale.',
-        icon: "/website-design.png",
-        iconAlt: "Websites",
-        width: 120,
-        height: 100
-    },
-    {
-        title: 'Aplikacje',
-        desc: 'Dedykowane aplikacje webowe – szyte na miarę Twojego biznesu.',
-        icon: "/mobile-app.png",
-        iconAlt: "Applications",
-        width: 80,
-        height: 80
-    },
-    {
-        title: 'Marketing & Foto',
-        desc: 'Kampanie, social media, content, fotografia produktowa i wizerunkowa.',
-        icon: "/photo-album.png",
-        iconAlt: "Marketing",
-        width: 80,
-        height: 80
-    },
-];
+import { useLanguage } from './LanguageProvider';
 
 export default function ServicesPortfolio() {
+    const { t } = useLanguage();
+
+    const services = [
+        {
+            title: t.services.web.title,
+            desc: t.services.web.description,
+            icon: "/website-design.png",
+            iconAlt: "Websites",
+            width: 120,
+            height: 120
+        },
+        {
+            title: t.services.app.title,
+            desc: t.services.app.description,
+            icon: "/mobile-app.png",
+            iconAlt: "Applications",
+            width: 80,
+            height: 80
+        },
+        {
+            title: t.services.marketing.title,
+            desc: t.services.marketing.description,
+            icon: "/photo-album.png",
+            iconAlt: "Marketing",
+            width: 80,
+            height: 80
+        },
+    ];
 
     return (
         <div className="py-8 px-4 max-w-6xl mx-auto">
             <div className="glass-main p-8">
                 {/* Sekcja Usługi */}
                 <div className="mb-16">
-                    <h2 className="text-3xl font-bold text-center mb-8 text-white">
-                        Usługi
+                    <h2 className="text-3xl font-bold text-center mb-2 text-white">
+                        {t.services.title}
                     </h2>
+                    <p className="text-center mb-8 text-slate-300 text-lg">
+                        {t.services.subtitle}
+                    </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {services.map((service, idx) => (
                             <div

@@ -1,17 +1,20 @@
 'use client';
 
 import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
+import { useLanguage } from './LanguageProvider';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-const NAV_LINKS = [
-  { name: 'Usługi', href: '#uslugi' },
-  { name: 'O mnie', href: '#about' },
-  { name: 'Kontakt', href: '#kontakt' },
-];
-
 export default function Navbar() {
+  const { t } = useLanguage();
   const [active, setActive] = useState<string>('home');
+
+  const NAV_LINKS = [
+    { name: t.nav.services, href: '#uslugi' },
+    { name: t.nav.about, href: '#about' },
+    { name: t.nav.contact, href: '#kontakt' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +59,7 @@ export default function Navbar() {
             </div>
             
             {/* Menu po prawej stronie */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
               {NAV_LINKS.map(link => {
                 const id = link.href.replace('#', '');
                 return (
@@ -71,7 +74,10 @@ export default function Navbar() {
                   </a>
                 );
               })}
-              <ThemeToggle />
+              <div className="flex items-center gap-2">
+                <LanguageToggle />
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </div>

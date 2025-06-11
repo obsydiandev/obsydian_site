@@ -27,6 +27,35 @@ body {
   cursor: default;
 }
 
+/* Style dla linków - kursor poin/* Pulsujące kółko - positioned below tooltip */
+.theme-tooltip-pulse {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 25%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: tooltip-pulse 2s infinite;
+}
+
+/* Pulsujące kółko dla fixed tooltip */
+.theme-tooltip-pulse-fixed {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: tooltip-pulse 2s infinite;
+}
+
+.light .theme-tooltip-pulse-fixed {
+  background: rgba(99, 102, 241, 0.7);
+}
+
 /* Style dla linków - kursor pointer */
 a {
   cursor: pointer;
@@ -364,6 +393,112 @@ input:focus, textarea:focus {
   background-color: #64748b;
 }
 
+/* Light theme tooltip */
+.light .theme-tooltip {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #1e293b;
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    0 2px 8px 0 rgba(31, 38, 135, 0.08);
+}
+
+.light .theme-tooltip-arrow {
+  border-top-color: rgba(255, 255, 255, 0.8);
+}
+
+.light .theme-tooltip-pulse {
+  background: rgba(99, 102, 241, 0.7);
+}
+
+/* Light theme pulse animation */
+.light .theme-toggle-pulse {
+  animation: theme-pulse-light 2s infinite;
+}
+
+@keyframes theme-pulse-light {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+  }
+}
+
+/* Language toggle - light theme */
+.light .language-toggle-btn {
+  background: linear-gradient(135deg, rgba(255,255,255,0.35) 10%, rgba(245,245,255,0.55) 100%);
+  border: 2px solid rgba(255,255,255,0.15);
+  color: #475569;
+}
+
+.light .language-toggle-btn:hover {
+  color: #1e293b;
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 10%, rgba(245,245,255,0.7) 100%);
+}
+
+/* Language Tooltip Styles - positioned above the button */
+.language-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.75rem);
+  right: 0;
+  transform: translateX(-25%);
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  z-index: 99999;
+  animation: fadeInUp 0.4s ease-out;
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.12),
+    0 2px 8px 0 rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  min-width: max-content;
+}
+
+.light .language-tooltip {
+  background: rgba(255, 255, 255, 0.8);
+  color: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    0 2px 8px 0 rgba(31, 38, 135, 0.08);
+}
+
+.language-tooltip-arrow {
+  position: absolute;
+  top: 100%;
+  right: 25%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid rgba(255, 255, 255, 0.15);
+}
+
+.light .language-tooltip-arrow {
+  border-top-color: rgba(255, 255, 255, 0.8);
+}
+
+.language-tooltip-pulse {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 25%;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: tooltip-pulse 2s infinite;
+}
+
 /* --- DARK THEME COLORS --- */
 .dark body,
 body {
@@ -586,11 +721,26 @@ body {
   padding: 0.5rem;
   transition: all 0.2s ease;
   color: #cbd5e1;
+  position: relative;
 }
 
 .theme-toggle-btn:hover {
   transform: scale(1.1);
   color: white;
+}
+
+/* Pulsowanie przycisku gdy tooltip jest widoczny */
+.theme-toggle-pulse {
+  animation: theme-pulse 2s infinite;
+}
+
+@keyframes theme-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(148, 163, 184, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(148, 163, 184, 0);
+  }
 }
 
 .theme-toggle-placeholder {
@@ -599,6 +749,145 @@ body {
   background-color: #94a3b8;
   border-radius: 9999px;
   opacity: 0.5;
+}
+
+/* Glass Tooltip - positioned above the button */
+.theme-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.75rem);
+  right: 0;
+  transform: translateX(-25%);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.12),
+    0 2px 8px 0 rgba(0, 0, 0, 0.08);
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  z-index: 99999;
+  animation: fadeInUp 0.4s ease-out;
+  min-width: max-content;
+}
+
+/* Fixed tooltip - escapes overflow:hidden containers */
+.theme-tooltip-fixed {
+  position: fixed;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.12),
+    0 2px 8px 0 rgba(0, 0, 0, 0.08);
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  z-index: 99999;
+  animation: fadeInUp 0.4s ease-out;
+  pointer-events: none;
+  width: 180px;
+  text-align: center;
+}
+
+.light .theme-tooltip-fixed {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    0 2px 8px 0 rgba(31, 38, 135, 0.08);
+}
+
+/* Arrow pointing to button - positioned dynamically */
+.theme-tooltip-arrow-fixed {
+  position: absolute;
+  top: 100%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid rgba(255, 255, 255, 0.15);
+  transform: translateX(-50%);
+}
+
+.light .theme-tooltip-arrow-fixed {
+  border-top-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Strzałka wskazująca na przycisk - positioned to point at button */
+.theme-tooltip-arrow {
+  position: absolute;
+  top: 100%;
+  right: 25%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Pulsujące kółko - positioned below arrow */
+.theme-tooltip-pulse {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 25%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: tooltip-pulse 2s infinite;
+}
+
+@keyframes tooltip-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Language toggle button */
+.language-toggle-btn {
+  background: rgba(71, 85, 105, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 9999px;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s ease;
+  color: #cbd5e1;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.language-toggle-btn:hover {
+  transform: scale(1.1);
+  color: white;
+  background: rgba(71, 85, 105, 0.6);
 }
 
 /* Animacja fade-in dla modala */
