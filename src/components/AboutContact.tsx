@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import ContactForm from './ContactForm';
+import About from './About';
 
 export default function AboutContact() {
   const [formData, setFormData] = useState({
@@ -63,7 +65,7 @@ export default function AboutContact() {
         {/* Contact Form Section */}
         <div className="h-full" id="kontakt">
           <div className="glass-main p-8 h-full">
-            <h2 className="text-3xl font-bold mb-6 text-white">Kontakt</h2>
+            <h2 className="text-3xl font-bold mb-6 text-white">Kontakt. Masz pomysł lub pytanie?</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-200 mb-2">
@@ -76,8 +78,7 @@ export default function AboutContact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                   placeholder="Wpisz swoje imię i nazwisko"
                 />
               </div>
@@ -93,8 +94,7 @@ export default function AboutContact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                   placeholder="twoj@email.com"
                 />
               </div>
@@ -110,17 +110,14 @@ export default function AboutContact() {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
                   placeholder="Opisz swój projekt lub zadaj pytanie..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full px-6 py-3 glass-card text-white font-medium
-                         hover:bg-blue-600/20 focus:outline-none focus:ring-2 focus:ring-blue-500 
-                         transition-all duration-200"
+                className="w-full px-6 py-3 glass-card text-white font-medium hover:bg-blue-600/20 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
               >
                 Wyślij wiadomość
               </button>
@@ -132,12 +129,12 @@ export default function AboutContact() {
               </p>
               <div className="mt-2 space-y-1 text-slate-300 text-sm">
                 <p>📧 kontakt@obsydian.pl</p>
-                <p>📱 +48 123 456 789</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
   );
 }

@@ -2,6 +2,8 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import LightIcon from './themeIcons/LightIcon';
+import DarkIcon from './themeIcons/DarkIcon';
 
 export default function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
