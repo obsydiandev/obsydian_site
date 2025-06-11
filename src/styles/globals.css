@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* Zapobiega skakaniu strony przy przewijaniu */
+html {
+  /* Usuwamy CSS scroll-behavior - używamy tylko JS */
+  scroll-padding-top: 80px; /* Offset dla fixed navbar */
+}
+
+body {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+  min-height: 100vh;
+  overflow-x: hidden; /* Zapobiega poziomemu scrollowi */
+}
+
+/* Stabilizacja layoutu - zapobiega przeskokom */
+* {
+  box-sizing: border-box;
+}
+
+/* Zoptymalizowany glass effect - tylko dla głównych kontenerów */
+.glass-main {
+  background: rgba(51, 65, 85, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 20px;
+  /* Optymalizacja kompozytów dla płynności */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Subtelny glass effect dla kart - bez blur dla wydajności */
+.glass-card {
+  background: rgba(71, 85, 105, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 16px;
+  /* Optymalizacja dla płynnych interakcji */
+  will-change: background-color;
+}
+
