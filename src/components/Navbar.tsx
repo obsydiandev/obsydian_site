@@ -2,6 +2,7 @@
 
 import ThemeToggle from './ThemeToggle';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const NAV_LINKS = [
   { name: 'Usługi', href: '#uslugi' },
@@ -11,32 +12,30 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [active, setActive] = useState<string>('home');
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Sprawdź czy strona jest przescrollowana
-      const scrolled = window.scrollY > 50;
-      setIsScrolled(scrolled);
-
-      // Pobierz pozycje sekcji względem viewportu
-      const scrollY = window.scrollY + 100; // +100 dla offsetu navbara
-      let current = 'home';
-      for (const link of NAV_LINKS) {
-        const id = link.href.replace('#', '');
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollY) {
-          current = id;
+      // Sprawdź aktywną sekcję na podstawie scroll position
+      const sections = document.querySelectorAll('section[id]');
+      let currentSection = '';
+      
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          currentSection = section.getAttribute('id') || '';
         }
+      });
+      
+      if (currentSection && currentSection !== active) {
+        setActive(currentSection);
       }
-      setActive(current);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // od razu przy załadowaniu
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [active]);
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50">
@@ -46,11 +45,13 @@ export default function Navbar() {
             {/* Logo po lewej stronie */}
             <div>
               <a href="#home" className="group">
-                <img 
-                  src="/logo_white.png" 
-                  alt="Obsydian Logo" 
-                  className="navbar-logo dark:filter dark:brightness-0 dark:invert"
-                />
+                  <Image
+                    src="/logo_white.png"
+                    alt="Obsydian Logo"
+                    width={120}
+                    height={40}
+                    className="navbar-logo dark:filter dark:brightness-0 dark:invert"
+                  />
               </a>
             </div>
             

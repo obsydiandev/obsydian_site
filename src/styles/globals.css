@@ -7,7 +7,12 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+  background: url('/dark_bg.png'), linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 50%, rgba(71, 85, 105, 0.4) 100%);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+  background-blend-mode: multiply;
   min-height: 100vh;
   overflow-x: hidden; /* Zapobiega poziomemu scrollowi */
 }
@@ -17,14 +22,15 @@ body {
   box-sizing: border-box;
 }
 
+/* Podstawowe cursor styles */
+body {
+  cursor: default;
+}
+
 /* Style dla linków - kursor pointer */
 a {
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-a:hover {
-  cursor: pointer;
 }
 
 /* Style dla buttonów */
@@ -33,39 +39,44 @@ button {
   transition: all 0.2s ease;
 }
 
-button:hover {
-  cursor: pointer;
-}
-
-/* Style dla elementów interaktywnych */
-.glass-card:hover,
-.glass-main:hover {
-  cursor: default;
-}
-
-/* Specyficzne style dla różnych typów linków */
-nav a {
-  cursor: pointer;
-}
-
-nav a:hover {
-  cursor: pointer;
-}
-
 /* Button w glass-card style */
 button.glass-card {
   cursor: pointer;
 }
 
-button.glass-card:hover {
+/* Nav links */
+nav a {
   cursor: pointer;
+}
+
+/* Input and textarea cursor */
+input, textarea {
+  cursor: text;
+}
+
+input:focus, textarea:focus {
+  cursor: text;
+}
+
+/* Clickable elements */
+[role="button"], .clickable {
+  cursor: pointer;
+}
+
+/* Ensure glass elements don't interfere with cursor */
+.glass-main {
+  cursor: auto;
+}
+
+.glass-card {
+  cursor: auto;
 }
 
 /* Zoptymalizowany glass effect - tylko dla głównych kontenerów */
 .glass-main {
-  background: rgba(51, 65, 85, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(51, 65, 85, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 20px;
   position: relative;
@@ -75,7 +86,7 @@ button.glass-card:hover {
   transform: translateZ(0);
 }
 
-/* Animowany połysk przechodzący przez kontener */
+/* Scroll-responsive połysk przechodzący przez kontener */
 .glass-main::before {
   content: '';
   position: absolute;
@@ -84,16 +95,18 @@ button.glass-card:hover {
   width: 200%;
   height: 200%;
   background: linear-gradient(
-    25deg,
-    transparent 40%,
-    rgba(148, 163, 184, 0.1) 45%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(148, 163, 184, 0.1) 55%,
-    transparent 60%
+    135deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.20) 50%,
+    rgba(255, 255, 255, 0.08) 60%,
+    transparent 70%
   );
-  animation: shimmer 20s ease-in-out infinite;
+  transform: translateX(var(--shimmer-x, -120%)) translateY(var(--shimmer-y, -40%)) rotate(45deg);
+  opacity: var(--shimmer-opacity, 0);
   pointer-events: none;
   z-index: 1;
+  transition: transform 0.8s ease-out, opacity 0.6s ease-out;
 }
 
 /* Dodatkowy reflex effect */
@@ -145,26 +158,42 @@ button.glass-card:hover {
 
 /* --- LIGHT THEME: Apple Liquid Glass --- */
 .light body {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 30%, #e2e8f0 70%, #cbd5e1 100%);
+  background: url('/light_bg.png'), linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.7) 30%, rgba(226, 232, 240, 0.6) 70%, rgba(203, 213, 225, 0.5) 100%);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+  background-blend-mode: multiply;
   color: #222;
 }
 
 .light .glass-main {
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 10%, rgba(245,245,255,0.9) 100%);
-  /* Usunięto backdrop-filter dla wydajności */
-  border: 1.5px solid rgba(200,200,200,0.18);
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 10%, rgba(245,245,255,0.28) 100%);
+  backdrop-filter: blur(16px) saturate(115%);
+  -webkit-backdrop-filter: blur(16px) saturate(115%);
+  border: 1.5px solid rgba(200,200,200,0.12);
   border-radius: 20px;
   box-shadow:
-    0 2px 8px 0 rgba(31,38,135,0.07),
-    0 1px 2px 0 rgba(255,255,255,0.07);
+    0 3px 12px 0 rgba(31,38,135,0.04),
+    0 1px 3px 0 rgba(255,255,255,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.15);
   position: relative;
   will-change: transform;
   transform: translateZ(0);
 }
 
-/* Usunięto shimmer w light theme */
+/* Shimmer również w light theme - delikatniejszy */
 .light .glass-main::before {
-  display: none;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(99, 102, 241, 0.08) 40%,
+    rgba(139, 92, 246, 0.12) 45%,
+    rgba(168, 85, 247, 0.15) 50%,
+    rgba(139, 92, 246, 0.12) 55%,
+    rgba(99, 102, 241, 0.08) 60%,
+    transparent 70%
+  );
 }
 
 .light .glass-main::after {
@@ -176,10 +205,10 @@ button.glass-card:hover {
 }
 
 .light .glass-card {
-  background: linear-gradient(135deg, rgba(255,255,255,0.45) 10%, rgba(245,245,255,0.75) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.3) 10%, rgba(245,245,255,0.45) 100%);
   backdrop-filter: blur(8px) saturate(110%);
   -webkit-backdrop-filter: blur(8px) saturate(110%);
-  border: 2px solid rgba(255,255,255,0.18);
+  border: 2px solid rgba(255,255,255,0.15);
   border-radius: 20px;
   box-shadow:
     0 2px 8px 0 rgba(31,38,135,0.08),
@@ -202,27 +231,27 @@ button.glass-card:hover {
 
 .light input.glass-card,
 .light textarea.glass-card {
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
-  border: 2px solid rgba(255,255,255,0.35);
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(245,245,255,0.6) 100%);
+  border: 2px solid rgba(255,255,255,0.25);
   color: #1e293b;
 }
 
 .light input.glass-card:focus,
 .light textarea.glass-card:focus {
-  background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(245,245,255,1) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(245,245,255,0.8) 100%);
   border: 2px solid #60a5fa;
   box-shadow: 0 0 0 2px #bae6fd;
 }
 
 .light button.glass-card {
   color: #1e293b;
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
-  border: 2px solid rgba(255,255,255,0.35);
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(245,245,255,0.7) 100%);
+  border: 2px solid rgba(255,255,255,0.25);
   box-shadow: 0 8px 32px 0 rgba(31,38,135,0.13);
 }
 
 .light button.glass-card:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(245,245,255,1) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
   box-shadow: 0 12px 40px 0 rgba(31,38,135,0.22);
 }
 
@@ -240,27 +269,27 @@ button.glass-card:hover {
 /* Hero button - light theme */
 .light .hero-button {
   color: #1e293b;
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
-  border: 2px solid rgba(255,255,255,0.35);
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(245,245,255,0.7) 100%);
+  border: 2px solid rgba(255,255,255,0.25);
   box-shadow: 0 8px 32px 0 rgba(31,38,135,0.13);
 }
 
 .light .hero-button:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(245,245,255,1) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
   box-shadow: 0 12px 40px 0 rgba(31,38,135,0.22);
 }
 
 /* Contact form - light theme */
 .light .contact-input,
 .light .contact-textarea {
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
-  border: 2px solid rgba(255,255,255,0.35);
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(245,245,255,0.7) 100%);
+  border: 2px solid rgba(255,255,255,0.25);
   color: #1e293b;
 }
 
 .light .contact-input:focus,
 .light .contact-textarea:focus {
-  background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(245,245,255,1) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
   border: 2px solid #60a5fa;
   box-shadow: 0 0 0 2px #bae6fd;
 }
@@ -272,20 +301,20 @@ button.glass-card:hover {
 
 .light .contact-submit-btn {
   color: #1e293b;
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
-  border: 2px solid rgba(255,255,255,0.35);
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(245,245,255,0.7) 100%);
+  border: 2px solid rgba(255,255,255,0.25);
   box-shadow: 0 8px 32px 0 rgba(31,38,135,0.13);
 }
 
 .light .contact-submit-btn:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(245,245,255,1) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,255,0.9) 100%);
   box-shadow: 0 12px 40px 0 rgba(31,38,135,0.22);
 }
 
 /* Tech tags - light theme */
 .light .tech-tag {
-  background: linear-gradient(135deg, rgba(255,255,255,0.45) 10%, rgba(245,245,255,0.75) 100%);
-  border: 2px solid rgba(255,255,255,0.18);
+  background: linear-gradient(135deg, rgba(255,255,255,0.35) 10%, rgba(245,245,255,0.55) 100%);
+  border: 2px solid rgba(255,255,255,0.15);
   color: #1e293b;
 }
 
@@ -322,8 +351,8 @@ button.glass-card:hover {
 
 /* Theme toggle - light theme */
 .light .theme-toggle-btn {
-  background: linear-gradient(135deg, rgba(255,255,255,0.45) 10%, rgba(245,245,255,0.75) 100%);
-  border: 2px solid rgba(255,255,255,0.18);
+  background: linear-gradient(135deg, rgba(255,255,255,0.35) 10%, rgba(245,245,255,0.55) 100%);
+  border: 2px solid rgba(255,255,255,0.15);
   color: #475569;
 }
 
@@ -338,6 +367,12 @@ button.glass-card:hover {
 /* --- DARK THEME COLORS --- */
 .dark body,
 body {
+  background: url('/dark_bg.png'), linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 50%, rgba(71, 85, 105, 0.4) 100%);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+  background-blend-mode: multiply;
   color: #f1f5f9; /* Jasny tekst dla dark theme */
 }
 
@@ -352,6 +387,31 @@ body {
 }
 
 /* --- KOMPONENTY SPECJALNE --- */
+
+/* Hero section - bardziej mleczne tło */
+.hero-section .glass-main {
+  background: rgba(51, 65, 85, 0.7);
+  backdrop-filter: blur(20px) saturate(110%);
+  -webkit-backdrop-filter: blur(20px) saturate(110%);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.12),
+    0 2px 8px 0 rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.light .hero-section .glass-main {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.95) 50%, rgba(241,245,249,0.9) 100%);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  border: 1.5px solid rgba(200,200,200,0.35);
+  box-shadow:
+    0 8px 32px 0 rgba(31,38,135,0.15),
+    0 4px 16px 0 rgba(31,38,135,0.08),
+    0 2px 8px 0 rgba(255,255,255,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 0 20px 0 rgba(255,255,255,0.1);
+}
 
 /* Hero button */
 .hero-button {

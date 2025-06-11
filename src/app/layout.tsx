@@ -3,7 +3,7 @@ import { Epilogue } from 'next/font/google';
 import ThemeProvider from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar'; 
 import Footer from '@/components/Footer';
-import SmoothScrollHandler from '@/components/SmoothScrollHandler';
+import ScrollShimmer from '@/components/ScrollShimmer';
 
 const epilogue = Epilogue({ subsets: ['latin'] });
 
@@ -21,11 +21,10 @@ export default function RootLayout({
     <html lang="pl" suppressHydrationWarning>
       <body className={epilogue.className}>
         <ThemeProvider>
-          <SmoothScrollHandler>
-            <Navbar />
-            <div className="pt-16">{children}</div>
-            <Footer />
-          </SmoothScrollHandler>
+          <ScrollShimmer />
+          <Navbar />
+          <div className="pt-16">{children}</div>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

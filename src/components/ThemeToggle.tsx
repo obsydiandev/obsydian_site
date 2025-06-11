@@ -6,7 +6,7 @@ import LightIcon from './themeIcons/LightIcon';
 import DarkIcon from './themeIcons/DarkIcon';
 
 export default function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from 'react';
 import Image from 'next/image';
 
 const services = [
@@ -30,39 +29,7 @@ const services = [
     },
 ];
 
-const projects = [
-    {
-        name: 'Sklep BlueZen',
-        desc: 'Nowoczesny e-commerce dla branży beauty. UX + optymalizacja sprzedaży.',
-        img: '/portfolio1.jpg',
-    },
-    {
-        name: 'Strona prezentacyjna',
-        desc: 'Strona prezentująca przepyszne desery. Minimalistyczny design, duże zdjęcia.',
-        img: '/pracovnia-biz-pl.png',
-    },
-    {
-        name: 'Kampania foto dla ZENBAG',
-        desc: 'Zdjęcia produktowe + landing sprzedażowy. Wyrazisty, mistyczny klimat.',
-        img: '/portfolio3.jpg',
-    },
-];
-
 export default function ServicesPortfolio() {
-    const [modalImg, setModalImg] = useState<string | null>(null);
-    const [modalAlt, setModalAlt] = useState<string>('');
-
-    const openModal = (img: string, alt: string) => {
-        setModalImg(img);
-        setModalAlt(alt);
-        document.body.style.overflow = 'hidden';
-    };
-    
-    const closeModal = () => {
-        setModalImg(null);
-        setModalAlt('');
-        document.body.style.overflow = '';
-    };
 
     return (
         <div className="py-8 px-4 max-w-6xl mx-auto">
@@ -137,33 +104,6 @@ export default function ServicesPortfolio() {
                 </div>
                 */}
             </div>
-
-            {modalImg && (
-                <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-                    onClick={closeModal}
-                >
-                    <div
-                        className="glass-main relative p-4 md:p-8 max-w-2xl w-[90vw] flex flex-col items-center animate-fade-in"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <button
-                            onClick={closeModal}
-                            className="absolute top-2 right-2 text-2xl text-white/80 hover:text-white bg-black/30 rounded-full px-2 py-1 transition"
-                        >
-                            &times;
-                        </button>
-                        <img
-                            src={modalImg}
-                            alt={modalAlt}
-                            className="modal-image"
-                        />
-                        <div className="text-white text-center text-lg font-semibold mt-2">
-                            {modalAlt}
-                        </div>
-                    </div>
-                </div>
-            )}
         </div> 
     );
 }

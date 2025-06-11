@@ -6,7 +6,7 @@ export default function Footer() {
          Made with <span>♥</span> Obsydian MM © {new Date().getFullYear()} 
         </div>
         
-        <div className="mt-2 text-xs text-slate-400">c
+        <div className="mt-2 text-xs text-slate-400">
                     <a
             href="https://www.linkedin.com/"
             target="_blank"

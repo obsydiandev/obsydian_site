@@ -36,7 +36,7 @@ export default function AboutContact() {
         setErrorMsg(data.error || "Błąd wysyłki. Spróbuj ponownie.");
         setStatus("error");
       }
-    } catch (err) {
+    } catch {
       setErrorMsg("Błąd sieci lub serwera. Spróbuj ponownie.");
       setStatus("error");
     }
