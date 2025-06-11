@@ -8,13 +8,13 @@ export default function Hero() {
             alt="Obsydian Logo"
             className="w-100 h-100"
           />
-          <h2 className="text-4xl md:text-5xl mb-8">Twój partner w cyfrowej magii</h2>
+          <h2 className="text-4xl md:text-5xl mb-8 text-white">Twój partner w cyfrowej magii</h2>
           
           <p className="text-xl md:text-2xl max-w-3xl mb-16 text-slate-200 leading-relaxed">
             Łączę technologię z kreatywnością dla firm i osób prywatnych.
           </p>
           <a href="#kontakt">
-            <button className="px-10 py-4 text-xl glass-card text-white hover:bg-slate-600 transition-all duration-300 transform hover:scale-105">
+            <button className="hero-button">
               Kontakt
             </button>
           </a>

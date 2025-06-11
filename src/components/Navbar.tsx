@@ -49,7 +49,7 @@ export default function Navbar() {
                 <img 
                   src="/logo_white.png" 
                   alt="Obsydian Logo" 
-                  className="h-24 w-auto transition-all duration-300 group-hover:opacity-80 dark:filter dark:brightness-0 dark:invert"
+                  className="navbar-logo dark:filter dark:brightness-0 dark:invert"
                 />
               </a>
             </div>
@@ -62,8 +62,8 @@ export default function Navbar() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className={`text-sm font-medium text-white transition-colors ${
-                      active === id ? 'font-bold text-white' : 'text-slate-300 hover:text-white'
+                    className={`nav-link ${
+                      active === id ? 'active' : 'inactive'
                     }`}
                   >
                     {link.name}

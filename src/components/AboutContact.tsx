@@ -66,10 +66,10 @@ export default function AboutContact() {
             </div>
 
             <div className="absolute bottom-0 left-0 w-full pb-8 px-8">
-              <h3 className="font-bold text-xl mb-4">Technologie</h3>
+              <h3 className="font-bold text-xl mb-4 text-white">Technologie</h3>
               <div className="flex flex-wrap gap-2">
                 {['JavaScript', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Java', 'IoT', 'System Enginering'].map(tech => (
-                  <span key={tech} className="px-3 py-1 glass-card text-sm text-white">
+                  <span key={tech} className="tech-tag">
                     {tech}
                   </span>
                 ))}
@@ -94,7 +94,7 @@ export default function AboutContact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  className="contact-input"
                   placeholder="Wpisz swoje imię i nazwisko"
                 />
               </div>
@@ -110,7 +110,7 @@ export default function AboutContact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  className="contact-input"
                   placeholder="twoj@email.com"
                 />
               </div>
@@ -126,23 +126,23 @@ export default function AboutContact() {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full px-4 py-3 glass-card text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                  className="contact-textarea"
                   placeholder="Opisz swój projekt lub zadaj pytanie..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full px-6 py-3 glass-card text-white font-medium hover:bg-blue-600/20 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                className="contact-submit-btn"
                 disabled={status==="loading"}
               >
                 {status==="loading" ? "Wysyłanie..." : "Wyślij wiadomość"}
               </button>
               {status==="success" && (
-                <div className="text-green-400 text-center pt-2">Wiadomość została wysłana!</div>
+                <div className="status-success">Wiadomość została wysłana!</div>
               )}
               {status==="error" && (
-                <div className="text-red-400 text-center pt-2">{errorMsg}</div>
+                <div className="status-error">{errorMsg}</div>
               )}
             </form>
 

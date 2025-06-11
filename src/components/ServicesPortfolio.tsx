@@ -117,8 +117,7 @@ export default function ServicesPortfolio() {
                                         <img
                                             src={proj.img}
                                             alt={proj.name}
-                                            className="object-cover w-full h-64 rounded-lg transition-transform duration-200 group-hover:scale-105"
-                                            style={{ background: '#1e293b' }}
+                                            className="portfolio-image"
                                         />
                                     ) : (
                                         <span className="text-slate-400">
@@ -157,8 +156,7 @@ export default function ServicesPortfolio() {
                         <img
                             src={modalImg}
                             alt={modalAlt}
-                            className="max-h-[70vh] w-auto rounded-xl shadow-xl mb-2"
-                            style={{ background: '#1e293b' }}
+                            className="modal-image"
                         />
                         <div className="text-white text-center text-lg font-semibold mt-2">
                             {modalAlt}

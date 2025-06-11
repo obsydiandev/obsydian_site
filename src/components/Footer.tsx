@@ -11,7 +11,7 @@ export default function Footer() {
             href="https://www.linkedin.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white transition-colors"
+            className="footer-link"
           >
             LinkedIn
           </a>
